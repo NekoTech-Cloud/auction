@@ -100,5 +100,11 @@ public class Auction
             return null;
         }
     }
+    
+    public void close()
+    //Future method to iterate via Lot objects w/ bids 
+    {
+    
+    }
 }
 
