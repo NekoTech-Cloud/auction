@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * A simple model of an auction.
@@ -102,9 +103,22 @@ public class Auction
     }
     
     public void close()
-    //Future method to iterate via Lot objects w/ bids 
+    //Question 3, I believe this needs to be edited for the iterator to work with the loop
     {
-    
+        Iterator<Lot>it = listOfLots.iterator();
+        for (Lot l : listOfLots) 
+        {
+            Bid bid = l.getHighestBid();
+            if (bid != null) 
+            {
+                System.out.println(l + ": " + bid.getBidder().getName() + 
+                " has the highest bid of $" + bid.getValue());
+            }
+            else 
+            {
+                System.out.println(l + " currently has no bids");
+            }
+        }
     }
 }
 
