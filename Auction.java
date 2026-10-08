@@ -120,5 +120,22 @@ public class Auction
             }
         }
     }
+
+    public ArrayList<Lot> getUnsold()
+    {
+        //Question 6
+        Iterator<Lot>it = listOfLots.iterator();
+        ArrayList<Lot> unsoldList = new ArrayList<>();
+        
+        while (it.hasNext()) 
+        {
+            Lot lot = it.next();
+            if (lot.getHighestBid() == null)
+            {
+                unsoldList.add(lot);
+            }
+        }
+        return unsoldList;
+    }
 }
 
