@@ -104,16 +104,13 @@ public class Auction
     public void close()
     //Question 3, gets list
     {
-        for (Lot l : listOfLots) 
-        {
+        for (Lot l : listOfLots) {
             Bid bid = l.getHighestBid();
-            if (bid != null) 
-            {
+            if (bid != null) {
                 System.out.println(l + ": " + bid.getBidder().getName() + 
                 " has the highest bid of $" + bid.getValue());
             }
-            else 
-            {
+            else {
                 System.out.println(l + " currently has no bids");
             }
         }
@@ -125,11 +122,9 @@ public class Auction
         Iterator<Lot>it = listOfLots.iterator();
         ArrayList<Lot> unsoldList = new ArrayList<>();
         
-        while (it.hasNext()) 
-        {
+        while (it.hasNext()) {
             Lot lot = it.next();
-            if (lot.getHighestBid() == null)
-            {
+            if (lot.getHighestBid() == null){
                 unsoldList.add(lot);
             }
         }
@@ -162,4 +157,22 @@ public class Auction
         }
         return lot;
     }
+    
+    /* Question 5
+     * The getLot method would be de-synced to the actual indexes. For 
+     * example, if "lot B" has its index changed from 1 to 0, while keeping 
+     * its lotNumber as 2, getLot would consistently print errors and 
+     * return null. */
+    
+    /* Question 8
+     * Both ArrayList & LinkedList are collections which store objects. They
+     * are both capable of removing, getting or adding elements. However, a
+     * LinkedList is more geared to manipulating data and involves "links"
+     * to other objects, rather than simply storing things in an array. Thus,
+     * you can more efficiently add or remove things at the beginning or end
+     * of the list. (Example, instead of .add(element) adding an element at
+     * the end of the list, you have access to methods .addFirst(element) - 
+     * which adds at the beginning of the list and .addLast(element) -
+     * to add at the end of a list.
+     */
 }
