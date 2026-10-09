@@ -80,32 +80,30 @@ public class Auction
      */
     public Lot getLot(int lotNumber)
     {
+        //Question 6, kept if validity check
+        Lot selectedLot = null;
         if((lotNumber >= 1) && (lotNumber < nextLotNumber)) {
             // The number seems to be reasonable.
-            Lot selectedLot = listOfLots.get(lotNumber - 1);
-            // Include a confidence check to be sure we have the
-            // right lot.
-            if(selectedLot.getNumber() != lotNumber) {
-                System.out.println("Internal error: Lot number " +
-                                   selectedLot.getNumber() +
-                                   " was returned instead of " +
-                                   lotNumber);
-                // Don't return an invalid lot.
-                selectedLot = null;
+            boolean found = false;
+            Iterator<Lot>it = listOfLots.iterator();
+            while (it.hasNext() && found == false) {
+                Lot lot = it.next();
+                if (lot.getNumber() == lotNumber){
+                    found = true;
+                    selectedLot = lot;  
+                }
             }
-            return selectedLot;
-        }
-        else {
-            System.out.println("Lot number: " + lotNumber +
+            if (found == false) {
+                System.out.println("Lot number: " + lotNumber +
                                " does not exist.");
-            return null;
+            }
         }
+        return selectedLot;
     }
     
     public void close()
-    //Question 3, I believe this needs to be edited for the iterator to work with the loop
+    //Question 3, gets list
     {
-        Iterator<Lot>it = listOfLots.iterator();
         for (Lot l : listOfLots) 
         {
             Bid bid = l.getHighestBid();
@@ -123,7 +121,7 @@ public class Auction
 
     public ArrayList<Lot> getUnsold()
     {
-        //Question 6
+        //Question 4
         Iterator<Lot>it = listOfLots.iterator();
         ArrayList<Lot> unsoldList = new ArrayList<>();
         
@@ -137,5 +135,31 @@ public class Auction
         }
         return unsoldList;
     }
+    
+    /**
+    * Remove the lot with the given lot number.
+    * @param number The number of the lot to be removed.
+    * @return The Lot with the given number, or null if
+    * there is no such lot.
+    */
+    public Lot removeLot(int number){
+        //Question 7
+        boolean match = false;
+        Iterator<Lot>it = listOfLots.iterator();
+        Lot lot = null;
+        while (it.hasNext() && match == false) {
+            lot = it.next();
+            if (lot.getNumber() == number) {
+                it.remove();
+                match = true;
+                System.out.println(number + " has been removed.");
+            }
+        }
+        if (match == false) {
+            System.out.println("Lot number: " + number +
+                               " does not exist.");
+            lot = null;
+        }
+        return lot;
+    }
 }
-
